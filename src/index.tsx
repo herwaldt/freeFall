@@ -1,13 +1,24 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { useTheme, MuiThemeProvider, CssBaseline } from '@material-ui/core';
+import { ChildrenProps, Component } from './types';
+
+const StyleProviders: Component<ChildrenProps> = ({ children }) => {
+  const theme = useTheme();
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </MuiThemeProvider>
+  );
+};
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StyleProviders>
     <App />
-  </React.StrictMode>,
+  </StyleProviders>,
   document.getElementById('root')
 );
 
