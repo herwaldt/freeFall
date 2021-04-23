@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import {
-  makeStyles,
-} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { useScrollData } from './hooks/scrollHooks';
 import { Component } from './types';
+import SmoothScroll from './components/SmoothScroll';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -12,22 +11,33 @@ const useStyles = makeStyles((theme) => ({
     height: '300vh',
     background: 'linear-gradient(#0D7EFD 30%, #00F9F9 90%)',
   },
+  page: {
+    height: '300vh',
+  },
+  section: {
+    width: '100%',
+    height: '100vh',
+    margin: 20,
+  },
   box: {
-    position: 'sticky',
-    top: 50,
+    width: 250,
+    height: 250,
+    padding: 60,
+    backgroundColor: 'blue',
+  },
+  sticky: {
     height: 200,
     width: 200,
+    position: 'sticky',
+    top: 50,
     margin: theme.spacing(5),
     backgroundColor: 'blue',
-    borderColor: 'white',
-    '&:hover': {
-      backgroundColor: 'red',
-    },
-  },
+  }
 }));
 
-// TODO -- make scroll wheel smooth animation like trackpad
 // TODO -- Add looping animations that go from left to right at different speeds
+// TODO -- Add eslint
+// TODO -- update README
 
 const App: Component = () => {
   const classes = useStyles();
@@ -60,10 +70,19 @@ const App: Component = () => {
   if (boxColor !== 'red' && direction?.y === 'up') setBoxColor('red');
   if (boxColor !== 'green' && direction?.y === 'down') setBoxColor('green');
   if (boxColor !== 'black' && !scrolling) setBoxColor('black');
+
   return (
-    <div className={classes.container}>
-      <div className={classes.box} style={{ backgroundColor: boxColor }} />
-    </div>
+    <SmoothScroll>
+      <div className={classes.section}>
+        <div className={classes.box} style={{ backgroundColor: boxColor }} />
+      </div>
+      <div className={classes.section}>
+        <div className={classes.box} style={{ backgroundColor: boxColor }} />
+      </div>
+      <div className={classes.section}>
+        <div className={classes.box} style={{ backgroundColor: boxColor }} />
+      </div>
+    </SmoothScroll>
   );
 }
 

@@ -11,3 +11,4 @@ export interface Component<P = EmptyObject> {
 
 export type ChildrenProps = { children?: ReactNode };
 
+export type ClassNameProps = { className?: string };
